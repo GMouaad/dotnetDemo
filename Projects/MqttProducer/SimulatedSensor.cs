@@ -12,6 +12,10 @@ namespace MqttProducer
     using MQTTnet.Extensions.ManagedClient;
     using MQTTnet.Protocol;
     using MQTTnet.Formatter;
+
+    /// <summary>
+    /// 
+    /// </summary>
     class SimulatedSensor
     {
         private IManagedMqttClient managedMqttClientPublisher;
@@ -27,13 +31,21 @@ namespace MqttProducer
             this.config = config;
         }
 
+        /// <summary>
+        /// The run method is the main method that will given as a handle to the thread
+        /// </summary>
         public void run()
         {
             while (true)
             {
                 try
                 {
-                    var payload = Encoding.UTF8.GetBytes(generateDummySensorValue());
+                    if (!this.managedMqttClientPublisher.IsStarted)
+                    {
+                        this.startClient();
+                    }
+                    var sensorValue = DateTimeOffset.Now.ToUnixTimeSeconds() +":"+ generateDummySensorValue();
+                    var payload = Encoding.UTF8.GetBytes(sensorValue);
                     var message = new MqttApplicationMessageBuilder()
                         .WithTopic(this.config.Topic)
                         .WithPayload(payload)
@@ -43,6 +55,7 @@ namespace MqttProducer
 
                     if (this.managedMqttClientPublisher != null)
                     {
+                        Console.WriteLine($"Publishing timestamp and sensor value: {sensorValue}");
                         this.managedMqttClientPublisher.PublishAsync(message);
                     }
                     Thread.Sleep(this.config.PublishInterval);
@@ -51,13 +64,16 @@ namespace MqttProducer
                 {
                     Console.WriteLine("Error Occurs" + ex.Message);
 
-                    // TODO: add stop and restart mechanism?
-                    // stop();
-                    // Thread.CurrentThread.Suspend();
+                    // TODO: add stop and restart mechanism
+                    stopClient();
+                    Thread.CurrentThread.Interrupt();
                 }
             }
         }
 
+        /// <summary>
+        /// Helping method to initialize the MQTT client and other properties
+        /// </summary>
         public void init()
         {
             this.mqttFactory = new MqttFactory();
@@ -103,24 +119,38 @@ namespace MqttProducer
 
         }
 
+        /// <summary>
+        /// Handle called when client gets connected
+        /// </summary>
+        /// <param name="obj"></param>
         private void OnPublisherConnected(MqttClientConnectedEventArgs obj)
         {
             Console.WriteLine($"Publisher connected to the broker and running on Thread {Thread.CurrentThread.Name}");
         }
 
+        /// <summary>
+        /// Handle called when client gets disconnected
+        /// </summary>
+        /// <param name="obj"></param>
         private void OnPublisherDisconnected(MqttClientDisconnectedEventArgs obj)
         {
             Console.WriteLine("Publisher disconnected from the broker");
             // Console.WriteLine($"Shutting down Thread {Thread.CurrentThread.Name}");
         }
 
-        public void start()
+        /// <summary>
+        /// Help function to start the client
+        /// </summary>
+        public void startClient()
         {
             this.managedMqttClientPublisher.StartAsync(
                 new ManagedMqttClientOptions { ClientOptions = this.options });
         }
 
-        public async void stop()
+        /// <summary>
+        /// Help function to stop the client
+        /// </summary>
+        public async void stopClient()
         {
             if (this.managedMqttClientPublisher == null)
                 return;
@@ -128,6 +158,10 @@ namespace MqttProducer
             this.managedMqttClientPublisher = null;
         }
 
+        /// <summary>
+        /// Help method to generate a random number to simulate sensor values
+        /// </summary>
+        /// <returns></returns>
         public String generateDummySensorValue()
         {
             var sensorValue = rnd.Next(20,30);

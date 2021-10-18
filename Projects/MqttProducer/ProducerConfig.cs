@@ -1,5 +1,8 @@
 namespace MqttProducer
 {
+    /// <summary>
+    /// Object to store the application configuration
+    /// </summary>
     class ProducerConfig
     {
         public string BrokerHostname { get; set; }
@@ -16,7 +19,7 @@ namespace MqttProducer
             this.Topic = topic;
             this.PublishInterval = publishInterval;
             this.Username = "username";
-            this.Password = "password"
+            this.Password = "password";
         }
     }
 }
