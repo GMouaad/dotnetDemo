@@ -8,7 +8,6 @@ namespace MqttConsumer
     using MQTTnet.Client.Receiving;
     using MQTTnet.Client.Options;
     using MQTTnet.Extensions.ManagedClient;
-    using MQTTnet.Protocol;
     using MQTTnet.Formatter;
     using System.Threading;
     using System.IO;
@@ -27,6 +26,10 @@ namespace MqttConsumer
         {
             this.config = config;
         }
+        
+        /// <summary>
+        /// Helping method to initialize the MQTT client and other properties
+        /// </summary>
         public void init()
         {
             this.mqttFactory = new MqttFactory();
