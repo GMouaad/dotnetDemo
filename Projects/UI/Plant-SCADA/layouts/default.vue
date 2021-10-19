@@ -83,7 +83,7 @@
       :absolute="!fixed"
       app
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <v-spacer>Mouaad Gssair</v-spacer> <v-spacer>Mgsair@gmail.com </v-spacer> <span>{{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
@@ -98,19 +98,24 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Home',
           to: '/'
         },
         {
+          icon: 'mdi-chart-bar',
+          title: 'Device Explorer',
+          to: '/rt-data-explorer'
+        },
+        {
           icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          title: 'About',
+          to: '/about'
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Plant-SCADA'
     }
   }
 }
