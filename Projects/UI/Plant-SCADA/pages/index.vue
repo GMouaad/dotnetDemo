@@ -7,44 +7,29 @@
       </v-card>
       <v-card>
         <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
+          Welcome to the Plant-SCADA
         </v-card-title>
         <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
+          <p>Plant-SCADA is a visualization tool based on Vue.js.</p>
           <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
+            For more information, check out the <a
+              href="https://github.com/GMouaad/dotnetDemo/tree/main/Projects"
               target="_blank"
               rel="noopener noreferrer"
             >
-              documentation
+              Github Repository
             </a>.
           </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
+          
           <hr class="my-3">
+          <a
+            href="https://vuejs.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Vue.js
+          </a>
+          <br>
           <a
             href="https://nuxtjs.org/"
             target="_blank"
@@ -66,7 +51,7 @@
           <v-btn
             color="primary"
             nuxt
-            to="/inspire"
+            to="/about"
           >
             Continue
           </v-btn>

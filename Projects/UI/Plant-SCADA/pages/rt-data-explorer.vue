@@ -21,6 +21,7 @@
         </div>
       </v-col>
     </v-row>
+    <hr class="my-3">
     <v-row grey>
       <!-- <label class="text-reader"> -->
       <!-- <input type="file" @change="loadTextFromFile" /> -->
@@ -36,6 +37,7 @@
         ></v-file-input>
       </v-col>
     </v-row>
+    <hr class="my-3">
   </v-container>
 </template>
 
